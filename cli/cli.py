@@ -1,12 +1,26 @@
 import argparse
 import os
+import subprocess
 
-def request_commit_message_from_ai():
-    pass
 
-def get_git_diff():
-    temporary_file = "temp_file.txt"
-    os.system(f"git diff")
+class CommitSmith:
+    def __init__(self):
+        self.git_diff = ''
+
+    def is_git_repository(self):
+        try:
+            subprocess.run(['git', 'rev-parse', '--is-inside-work-tree'], capture_output=True, check=True, text=True)
+            return True
+        except subprocess.CalledProcessError:
+            return False
+
+    def get_git_diff(self):
+        temp_filename = 'temporary_file.txt'
+        os.system(f"git diff > {temp_filename}")
+        with open(temp_filename, 'r') as temp_file:
+            self.git_diff = temp_file.read()
+        os.remove(temp_filename)
+
 
 
 def main(): # this name has to be changed in the future
