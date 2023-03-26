@@ -1,0 +1,124 @@
+/* General Styles */
+body {
+    font-family: 'Orbitron', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
+    background-color: #1c1e26;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #2e3141;
+    padding: 1rem 0;
+}
+
+header .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a:hover {
+    color: #00bcd4;
+}
+
+nav .menu {
+    display: flex;
+}
+
+nav .menu li {
+    margin-left: 1rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem 0;
+    color: #00bcd4;
+}
+
+/* Main */
+main {
+    padding: 2rem 0;
+}
+
+.how-to-use {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    background-color: #f1f1f1;
+    padding: 2rem 0;
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li {
+    margin-left: 1rem;
+}
+
+.social-icons {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+header, footer {
+    background-color: #2e3141;
+}
+
+nav a {
+    color: #ffffff;
+}
+
+nav a:hover {
+    color: #00bcd4;
+}
+
+.hero {
+    color: #00bcd4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #00bcd4;
+}
+
+input[type="submit"] {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
+
+input[type="submit"]:hover {
+    background-color: #00a0b0;
+    color: #ffffff;
+}
