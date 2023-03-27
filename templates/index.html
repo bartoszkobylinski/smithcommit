@@ -1,86 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+{% extends "base.html" %}
 
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
 
-<header>
-    <nav>
-        <div class="logo">
-            <a href="/">CommitSmith</a>
+    <main>
+        <div class="overlay">
+            <img src="{{ url_for('static', filename='robocik-remove.png') }}" alt="robocik"/>
         </div>
-        <ul class="menu">
-            <li><a href="/the-adventures-of-emma">The Adventures of Emma</a></li>
-            <li><a href="/message-masterpieces">Message Masterpieces</a></li>
-            <li><a href="/commitsmith-festival">CommitSmith Festival</a></li>
-            <li><a href="/fun-facts">Fun Facts</a></li>
-            <li><a href="/commit-gallery">Commit Gallery</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-        </ul>
-    </nav>
-    <div class="hero">
-        <h1>Welcome to the World of CommitSmith</h1>
-        <p>Where commit messages are crafted with love, humor, and a pinch of magic!</p>
-    </div>
-</header>
-
-<main>
-    <section class="how-to-use">
-    <h2>Let CommitSmith Work Its Magic!</h2>
-    <p>Oh, weary coder, you've come to the right place! The legendary CommitSmith is here to transform your diff message into a beautiful commit message that will make your fellow developers smile.</p>
-    <p>Just follow these simple steps, and let the magic happen:</p>
-    <ol>
-        <li>First, summon the diff from your Git repository by casting the powerful incantation <code>git diff > your_file.txt</code> in your command-line terminal. This spell will conjure the diff and store it in a text file.</li>
-        <li>Open the enchanted text file you've just created and behold the diff message within.</li>
-        <li>Cast your eyes upon the mystical text input field below, where your diff message shall be entered.</li>
-        <li>Type or paste your diff message into the enchanted box, and watch as it eagerly awaits CommitSmith's touch.</li>
-        <li>When you're ready to witness the magic, press the "Give Me My Beautiful Commit" button, and let CommitSmith weave its spell.</li>
-        <li>Behold the result! A commit message crafted with love, humor, and a sprinkle of CommitSmith's secret ingredient.</li>
-        <li>Copy your beautiful commit message, and use it in your repository. Share the joy and wonder of CommitSmith with your fellow coders!</li>
-    </ol>
-    <p>So, are you ready to embark on this magical journey? The CommitSmith is eager to assist you!</p>
-</section>
+        <section class="how-to-use move-up">
+            <h2>Let Pretty Commit Work Its Magic!</h2>
+            <p>Oh, weary coder, you've come to the right place! The legendary Pretty Commit is here to transform your diff message into a beautiful commit message that will make your fellow developers smile.</p>
+            <p>Just follow these simple steps, and let the magic happen:</p>
+            <ol>
+                <li>First, summon the diff from your Git repository by casting the powerful incantation <code>git diff > your_file.txt</code> in your command-line terminal. This spell will conjure the diff and store it in a text file.</li>
+                <li>Open the enchanted text file you've just created and behold the diff message within.</li>
+                <li>Cast your eyes upon the mystical text input field below, where your diff message shall be entered.</li>
+                <li>Type or paste your diff message into the enchanted box, and watch as it eagerly awaits CommitSmith's touch.</li>
+                <li>When you're ready to witness the magic, press the "Give Me My Beautiful Commit" button, and let CommitSmith weave its spell.</li>
+                <li>Behold the result! A commit message crafted with love, humor, and a sprinkle of CommitSmith's secret ingredient.</li>
+                <li>Copy your beautiful commit message, and use it in your repository. Share the joy and wonder of CommitSmith with your fellow coders!</li>
+            </ol>
+            <p>So, are you ready to embark on this magical journey? The CommitSmith is eager to assist you!</p>
+        </section>
 
 
 
     {% from "_formhelpers.html" import render_field %}
-    <form method="post">
-        <p>Hey from form</p>
+    <form class="move-up" method="post">
         <dl>
-            {{ render_field(form.diff_message) }}
+            {{ form.diff_message(class='diff_message') }}
         </dl>
-        <p><input type="submit" value="Give me my beautiful commit"></p>
+        <p>
+            <button type="submit">Craft my beautiful commit </button>
+        <p/>
     </form>
-
-    <p>Oh here is you answer:</p>
-    <p> {{ commit_message }}</p>
 </main>
-<footer>
-    <p>&copy; 2023 CommitSmith. Forging Perfect Commit Messages Since Emma's Great Idea!</p>
-    <p>Need some commit message tips? Ask our Commit Message Guru: <a href="mailto:guru@commitsmith.com">guru@commitsmith.com</a></p>
-    <p>Address: 42 Commit Street, Codeland, Keyboard Valley</p>
-    <ul>
-        <li><a href="/commit-tales">Tales of the CommitSmith</a></li>
-        <li><a href="/message-masterpieces">Commit Message Masterpieces</a></li>
-        <li><a href="/commitsmith-festival">CommitSmith Festival</a></li>
-    </ul>
-    <div class="social-icons">
-        <a href="https://www.facebook.com/commitsmith" target="_blank">Facebook</a> |
-        <a href="https://www.twitter.com/commitsmith" target="_blank">Twitter</a> |
-        <a href="https://www.instagram.com/commitsmith" target="_blank">Instagram</a>
-    </div>
-    <p>Because who doesn't love a good commit message? Happy coding!</p>
-</footer>
 
-
-
-
-</body>
-</html>
+{% endblock %}
