@@ -155,7 +155,17 @@ text-align: center;
     display: flex;
     flex-direction: column;
 }
+.commit-message{
+    width: 500px;
+    overflow: auto;
+}
+.commit-message > pre {
+    word-break: break-word;
+}
 
 .commit-robot{
     width: 20%;
+}
+.commit-robot > img{
+    width: 100%;
 }

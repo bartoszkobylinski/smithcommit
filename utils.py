@@ -1,10 +1,10 @@
 import openai
 from wtforms import Form, TextAreaField
-from prompt import system_prompt
+import ast
 
 
 class CommitForm(Form):
-    diff_message = TextAreaField()
+    diff_message = TextAreaField(render_kw={"placeholder": "set your diff message here"})
 
 
 def request_commit_from_open_ai(prompt, api_key, sys_prompt):
@@ -17,7 +17,10 @@ def request_commit_from_open_ai(prompt, api_key, sys_prompt):
         ],
         max_tokens=1280,
         n=1,
-        temperature=0.5,
+        temperature=0.0,
     )
-    commit_message = completion.choices[0].message
+    commit_message = completion.choices[0].message['content']
+    print(commit_message)
+    commit_message = ast.literal_eval(commit_message)
+    # print(commit_message)
     return commit_message

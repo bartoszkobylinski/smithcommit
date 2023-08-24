@@ -8,11 +8,14 @@
                 <h2>Your Beautiful Commit Message</h2>
                     {% if commit_message %}
                         <div class="commit-message">
-                            <pre>{{ commit_message }}</pre>
+                            <p>Title: {{ commit_message.title }}</p>
+                            <p>Description: {{ commit_message.description }}</p>
                         </div>
                     {% else %}
-                <p>Oh no! Something went wrong, and CommitSmith couldn't craft your beautiful commit message. Please <a href="{{ url_for('index') }}">go back</a> and try again.</p>
+                <p>Oh, no! Something went wrong, and CommitSmith couldn't craft your beautiful commit message. Please <a href="{{ url_for('index') }}">go back</a> and try again.</p>
                     {% endif %}
+            </div>
+            <div class="result-button">
                 <p>
                     <a href="{{ url_for('index') }}"><button type="submit">Craft Another Commit</button></a>
                 </p>
