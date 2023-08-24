@@ -1,20 +1,23 @@
 import openai
 from wtforms import Form, TextAreaField
+from prompt import system_prompt
 
 
 class CommitForm(Form):
     diff_message = TextAreaField()
 
 
-def request_commit_from_open_ai(prompt, api_key):
-    response = openai.Completion.create(
-        model='text-davinci-003',
-        api_key=api_key,
-        prompt=prompt,
+def request_commit_from_open_ai(prompt, api_key, sys_prompt):
+    openai.api_key = api_key
+    completion = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=[
+            {"role": "system", "content": sys_prompt},
+            {"role": "user", "content": prompt}
+        ],
         max_tokens=1280,
         n=1,
-        stop='.',
         temperature=0.5,
     )
-    commit_message = response.choices[0].text.strip()
+    commit_message = completion.choices[0].message
     return commit_message

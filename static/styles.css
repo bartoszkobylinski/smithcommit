@@ -76,6 +76,9 @@ flex-direction: column;
 max-width: 80%;
 margin: 0 auto;
 }
+form p{
+    align-self: center;
+}
 .diff_message {
 width: 700px;
 height: 400px;
@@ -93,6 +96,7 @@ color: #ffffff;
 cursor: pointer;
 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 transition: all 0.2s ease-in-out;
+    align-self: center;
 }
 button[type="submit"]:hover {
 background-color: #02a9f7;
@@ -111,6 +115,10 @@ padding-bottom: 1rem;
 footer p {
 margin-bottom: 1rem;
 text-align: center;
+    color: #ffffff;
+}
+footer a{
+    color: #ffffff;
 }
 footer ul {
 display: flex;
@@ -118,6 +126,7 @@ justify-content: center;
 }
 footer ul li {
 margin-left: 1rem;
+    color: #ffffff;
 }
 .footer-info {
 display: flex;
@@ -128,4 +137,25 @@ font-size: 10px;
 }
 .social-icons {
 text-align: center;
+}
+
+/* Commit page */
+
+.commit-main {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+.result-wrapper{
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+}
+.result {
+    display: flex;
+    flex-direction: column;
+}
+
+.commit-robot{
+    width: 20%;
 }

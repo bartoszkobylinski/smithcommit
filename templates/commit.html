@@ -2,20 +2,25 @@
 
 {% block content %}
 
-<main>
-        <section class="result">
-            <h2>Your Beautiful Commit Message</h2>
-            {% if commit_message %}
-            <div class="commit-message">
-                <pre>{{ commit_message }}</pre>
+    <main class="commit-main">
+        <section class="result-wrapper">
+            <div class="result">
+                <h2>Your Beautiful Commit Message</h2>
+                    {% if commit_message %}
+                        <div class="commit-message">
+                            <pre>{{ commit_message }}</pre>
+                        </div>
+                    {% else %}
+                <p>Oh no! Something went wrong, and CommitSmith couldn't craft your beautiful commit message. Please <a href="{{ url_for('index') }}">go back</a> and try again.</p>
+                    {% endif %}
+                <p>
+                    <a href="{{ url_for('index') }}"><button type="submit">Craft Another Commit</button></a>
+                </p>
             </div>
-            {% else %}
-            <p>Oh no! Something went wrong, and CommitSmith couldn't craft your beautiful commit message. Please <a href="{{ url_for('index') }}">go back</a> and try again.</p>
-            {% endif %}
-            <p>
-                <a href="{{ url_for('index') }}" class="button">Craft Another Commit</a>
-            </p>
         </section>
+        <div class="commit-robot">
+            <img src="{{ url_for('static', filename='robot_standing-removebg.png') }}" alt="robocik"/>
+        </div>
     </main>
 
 {% endblock %}
