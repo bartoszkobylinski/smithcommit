@@ -6,7 +6,8 @@
         <div class="overlay">
             <img src="{{ url_for('static', filename='robocik-remove.png') }}" alt="robocik"/>
         </div>
-        <section class="how-to-use move-up">
+        <div class="form_info_wrapper">
+            <section class="how-to-use move-up">
             <h2>Let Pretty Commit Work Its Magic!</h2>
             <p>Oh, weary coder, you've come to the right place! The legendary Pretty Commit is here to transform your diff message into a beautiful commit message that will make your fellow developers smile.</p>
             <p>Just follow these simple steps, and let the magic happen:</p>
@@ -33,6 +34,8 @@
             <button id="submitButton" type="submit">Craft my beautiful commit </button>
         </p>
     </form>
+        </div>
+
 </main>
 
 {% endblock %}
