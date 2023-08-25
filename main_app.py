@@ -2,12 +2,14 @@ import os
 from datetime import datetime
 
 from flask import Flask, redirect, render_template, request, session, url_for
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, login_required
+from flask_migrate import Migrate
 
 from database import db
 from prompt import system_prompt as sys_pr
 from models import RequestCounter, User
-from utils import CommitForm, LoginForm, request_commit_from_open_ai
+from app_forms import CommitForm, LoginForm, RegistrationForm
+from utils import request_commit_from_open_ai
 from login_manager import init_login_manager
 
 openai_api_key = os.environ.get("OPENAI_APIKEY")
@@ -20,6 +22,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///request.db"
 
     db.init_app(app)
+    migrate = Migrate(app, db)
     init_login_manager(app)
 
     @app.route("/", methods=["GET", "POST"])
@@ -70,6 +73,20 @@ def create_app():
     def logout():
         logout_user()
         return redirect(url_for('index'))
+
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        register_form = RegistrationForm()
+        if register_form.validate_on_submit():
+            user = User(email=register_form.email.data)
+            user.set_password(register_form.password.data)
+
+            db.session.add(user)
+            db.session.commit()
+
+            return redirect(url_for('login'))
+
+        return render_template('register.html', register_form=register_form)
 
     return app
 
