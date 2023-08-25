@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="login-form-container">
+    <h2>Login</h2>
+    <form method="post">
+        {{ login_form.hidden_tag() }}
+
+        <div class="form-group">
+            <label class="form-label">{{ login_form.email.label.text }}</label>
+            {{ login_form.email(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ login_form.password.label.text }}</label>
+            {{ login_form.password(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ login_form.remember() }}
+            <label class="form-label">{{ login_form.remember.label.text }}</label>
+        </div>
+
+        <div class="form-group">
+            {{ login_form.submit(class="btn-primary") }}
+        </div>
+    </form>
+</div>
+
+{% endblock %}
