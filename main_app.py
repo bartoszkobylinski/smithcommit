@@ -1,9 +1,10 @@
 import os
 from datetime import datetime
 
-from flask import Flask, redirect, render_template, request, session, url_for
-from flask_login import login_user, logout_user, login_required
+from flask import Flask, redirect, render_template, request, session, url_for, flash
+from flask_login import login_user, logout_user, login_required, current_user
 from flask_migrate import Migrate
+from flask_wtf.csrf import CSRFProtect
 
 from database import db
 from prompt import system_prompt as sys_pr
@@ -14,10 +15,12 @@ from login_manager import init_login_manager
 
 openai_api_key = os.environ.get("OPENAI_APIKEY")
 secret_key = os.environ.get("MY_WEBSITE_FLASK_SESSION_SECRET_KEY")
+csrf = CSRFProtect()
 
 
 def create_app():
     app = Flask(__name__)
+    csrf.init_app(app)
     app.secret_key = secret_key
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///request.db"
 
@@ -27,6 +30,8 @@ def create_app():
 
     @app.route("/", methods=["GET", "POST"])
     def index():
+        print(f"session: {session}")
+        session.pop('commit_message', None)
         commit_form = CommitForm(request.form)
         today = datetime.date(datetime.now())
 
@@ -46,7 +51,6 @@ def create_app():
             counter.count += 1
             db.session.commit()
             session["commit_message"] = commit_message
-            print(f"counter: {counter.count}")
             return redirect(url_for("commit"))
 
         return render_template("index.html", form=commit_form)
@@ -71,7 +75,10 @@ def create_app():
     @app.route('/logout')
     @login_required
     def logout():
+        print(f"user auth: {current_user.is_authenticated}")
         logout_user()
+        session.clear()
+        print(f"user auth: {current_user.is_authenticated}")
         return redirect(url_for('index'))
 
     @app.route('/register', methods=['GET', 'POST'])
@@ -87,6 +94,42 @@ def create_app():
             return redirect(url_for('login'))
 
         return render_template('register.html', register_form=register_form)
+
+    @app.route('/profile', methods=['GET'])
+    @login_required
+    def profile():
+        return render_template('profile.html', user=current_user)
+
+    @app.route('/update_api_key', methods=['POST'])
+    @login_required
+    def update_api_key():
+        new_api_key = request.form.get('new_api_key')
+        current_user.api_key = new_api_key
+        db.session.commit()
+        flash("API key updated successfully!", 'success')
+        return redirect(url_for('profile'))
+
+    @app.route('/delete_api_key', methods=['POST'])
+    @login_required
+    def delete_api_key():
+        current_user.api_key = None
+        db.session.commit()
+        flash("API key deleted successfully!", 'success')
+        return redirect(url_for('profile'))
+
+    @app.route('/change_password', methods=['POST'])
+    @login_required
+    def change_password():
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+
+        if not current_user.check_password(current_password):
+            flash('Current password is incorrect', 'danger')
+            return redirect(url_for('profile'))
+        current_user.set_password(new_password)
+        db.session.commit()
+        flash("Password updated successfully!", 'success')
+        return redirect(url_for('profile'))
 
     return app
 

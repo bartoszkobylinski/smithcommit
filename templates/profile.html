@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>User Profile</h1>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Password:</strong> {{ user.password }}</p>
+    <p><strong>API KEY:</strong> {{ user.api_key }}</p>
+
+    <form action="{{ url_for('update_api_key') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <label for="new_api_key">Enter New API Key:</label>
+        <input type="text" name="new_api_key" required>
+        <button type="submit">Update API Key</button>
+    </form>
+
+    <form action="{{ url_for('delete_api_key') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <input type="submit" value="Delete API Key">
+    </form>
+
+    <!-- For changing the password -->
+    <form action="{{ url_for('change_password') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <label for="current_password">Current Password:</label>
+        <input type="password" name="current_password" required>
+
+        <label for="new_password">New Password:</label>
+        <input type="password" name="new_password" required>
+
+        <button type="submit">Change Password</button>
+    </form>
+
+
+{% endblock %}

@@ -38,7 +38,7 @@ nav .menu li {
     font-size: 1rem;
     text-align: center;
 }
-header a, h1, p {
+header a, header h1, header p {
     color: #ffffff;
 }
 .user-login{
@@ -46,7 +46,6 @@ header a, h1, p {
     justify-content: center;
     width: 10%;
 }
-
 
 .material-symbols-outlined {
     margin: 0 1rem;
@@ -57,6 +56,29 @@ header a, h1, p {
   'GRAD' 0,
   'opsz' 48
 }
+/* Flash messages */
+.flash-messages {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.flash.success {
+    color: green;
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaffaa;
+}
+
+.flash.danger {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ffaaaa;
+}
+
 /* Main */
 main {
     padding: 2rem 0;
@@ -207,4 +229,12 @@ text-align: center;
 #submitButton.loading:after {
     content: '';
     animation: loadingDots 1s infinite;
+}
+
+/* Login Page */
+.login-form-container {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
 }
