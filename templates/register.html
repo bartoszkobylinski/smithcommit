@@ -4,21 +4,21 @@
 
 <h2>Register</h2>
 <form method="post">
-    {{ form.hidden_tag() }}
+    {{ register_form.hidden_tag() }}
 
     <label for="email">Email:</label>
-    {{ form.email(id='email') }}
+    {{ register_form.email(id='email') }}
     <br>
 
     <label for="password">Password:</label>
-    {{ form.password(id='password') }}
+    {{ register_form.password(id='password') }}
     <br>
 
     <label for="confirm_password">Confirm Password:</label>
-    {{ form.confirm_password(id='confirm_password') }}
+    {{ register_form.confirm_password(id='confirm_password') }}
     <br>
 
-    {{ form.submit() }}
+    {{ register_form.submit() }}
 </form>
 
 {% endblock %}

@@ -78,7 +78,7 @@ def create_app():
     def register():
         register_form = RegistrationForm()
         if register_form.validate_on_submit():
-            user = User(email=register_form.email.data)
+            user = User()
             user.set_password(register_form.password.data)
 
             db.session.add(user)
