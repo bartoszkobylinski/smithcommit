@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, f
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import db
 from prompt import system_prompt as sys_pr
@@ -30,7 +31,6 @@ def create_app():
 
     @app.route("/", methods=["GET", "POST"])
     def index():
-        print(f"session: {session}")
         session.pop('commit_message', None)
         commit_form = CommitForm(request.form)
         today = datetime.date(datetime.now())
@@ -42,14 +42,21 @@ def create_app():
             db.session.commit()
 
         if request.method == "POST" and commit_form.validate():
-            if counter.count > 15:
-                return render_template("index.html", form=commit_form)
+            using_user_api = bool(current_user.api_key)
+            used_api_key = current_user.api_key if using_user_api else openai_api_key
+
+            if not using_user_api and counter.count >= 15:
+                flash("The global request limit has been reached for today. Please try again tomorrow.", 'danger')
+                return render_template('index.html', form=commit_form)
+
             diff = commit_form.diff_message.data
             commit_message = request_commit_from_open_ai(
-                prompt=diff, api_key=openai_api_key, sys_prompt=sys_pr
+                prompt=diff, api_key=used_api_key, sys_prompt=sys_pr
             )
-            counter.count += 1
-            db.session.commit()
+            if not using_user_api:
+                counter.count += 1
+                db.session.commit()
+
             session["commit_message"] = commit_message
             return redirect(url_for("commit"))
 
@@ -69,29 +76,38 @@ def create_app():
             user = User.query.filter_by(email=login_form.email.data).first()
             if user and user.check_password(login_form.password.data):
                 login_user(user, remember=login_form.remember.data)
+                flash("Logged in successfully.", 'success')
                 return redirect(url_for('index'))
+            flash("Invalid email or password. Please try again.", 'danger')
         return render_template('login.html', login_form=login_form)
 
     @app.route('/logout')
     @login_required
     def logout():
-        print(f"user auth: {current_user.is_authenticated}")
         logout_user()
+        flash("Logged out successfully.", 'success')
         session.clear()
-        print(f"user auth: {current_user.is_authenticated}")
         return redirect(url_for('index'))
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         register_form = RegistrationForm()
         if register_form.validate_on_submit():
+            existing_user = User.query.filter_by(email=register_form.email.data).first()
+            if existing_user:
+                flash("This email is already registered. Try logging in.", 'danger')
+                return redirect(url_for('login'))
             user = User()
             user.set_password(register_form.password.data)
 
             db.session.add(user)
             db.session.commit()
-
+            flash("Registered successfully. You can now login.", 'success')
             return redirect(url_for('login'))
+
+        for field, errors in register_form.errors.items():
+            for error in errors:
+                flash(error, 'danger')
 
         return render_template('register.html', register_form=register_form)
 
@@ -104,7 +120,8 @@ def create_app():
     @login_required
     def update_api_key():
         new_api_key = request.form.get('new_api_key')
-        current_user.api_key = new_api_key
+        hashed_api_key = generate_password_hash(new_api_key, method='sha256')
+        current_user.api_key = hashed_api_key
         db.session.commit()
         flash("API key updated successfully!", 'success')
         return redirect(url_for('profile'))
@@ -130,6 +147,10 @@ def create_app():
         db.session.commit()
         flash("Password updated successfully!", 'success')
         return redirect(url_for('profile'))
+
+    @app.template_filter('mask_password')
+    def mask_password_filter(password):
+        return '*' * 10
 
     return app
 

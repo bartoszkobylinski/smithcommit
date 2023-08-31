@@ -113,13 +113,13 @@ width: 100%;
 .move-up {
 transform: translateY(-185px);
 }
-form {
+.move-up form {
 display: flex;
 flex-direction: column;
 max-width: 49%;
 margin: 0 auto;
 }
-form p{
+.move-up form p{
     align-self: center;
 }
 .diff_message {
@@ -238,3 +238,33 @@ text-align: center;
     flex-direction: column;
     width: 25rem;
 }
+
+/* Profile Page */
+.user-profile{
+    align-self: center;
+    width: 12.5rem;
+}
+.update_api_key_form,
+.delete_api_key_form,
+.change_password_form{
+    align-self: center;
+    width: 50rem;
+}
+.update_api_key_form form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.update_api_key_form form label,
+.update_api_key_form form button{
+    white-space: nowrap;
+    margin: 0 1rem;
+}
+
+.update_api_key_form form button,
+.delete_api_key_form form button,
+.change_password_form form button{
+    font-size: 0.75rem;
+    padding: 0.25rem 1rem
+}
+

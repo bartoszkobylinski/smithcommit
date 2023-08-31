@@ -1,10 +1,6 @@
 import openai
 import ast
 
-
-
-
-
 def request_commit_from_open_ai(prompt, api_key, sys_prompt):
     openai.api_key = api_key
     completion = openai.ChatCompletion.create(
