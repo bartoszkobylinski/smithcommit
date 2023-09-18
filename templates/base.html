@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <title>Pretty Commit</title>
+</head>
+    <body>
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="/">
+                        <img src="{{ url_for('static', filename='pretty_commit_logo.png') }}" alt="Logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li><a href="#">Why Pretty Commit</a></li>
+                    <li><a href="#">How to do the best commit</a></li>
+                    <li><a href="#">Fun Facts</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <div class="user-login">
+                    {% if current_user.is_authenticated %}
+                        <span class="material-symbols-outlined">
+                            <a href="{{ url_for('logout') }}" >logout</a>
+                        </span>
+                        <span class="material-symbols-outlined">
+                           <a href="{{ url_for('profile') }}" >person</a>
+                        </span>
+                    {% else %}
+                        <span class="material-symbols-outlined">
+                            <a href="{{ url_for('login') }}" >login</a>
+                        </span>
+                    {% endif %}
+                </div>
+
+            </nav>
+            <div class="logo">
+                <h1>Welcome to the World of Pretty Commit</h1>
+                <p>Where commit messages are crafted with love, humor, and a pinch of magic!</p>
+            </div>
+        </header>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+        {% block scripts %}
+            <script src="{{ url_for('static', filename='js/submit.js') }}"></script>
+        {% endblock %}
+
+        <footer>
+            <div class="footer-info">
+                <p>&copy; 2023 Pretty Commit. Forging Perfect Commit Messages Since Emma's Great Idea!</p>
+            </div>
+            <div class="social-icons">
+                <a>Our social media accounts will be added here, but don't worry, we'll address this in the future.</a>
+            </div>
+            <p>Because who doesn't love a good commit message? Happy coding!</p>
+        </footer>
+</body>
+</html>
