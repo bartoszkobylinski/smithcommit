@@ -97,7 +97,7 @@ def create_app():
             if existing_user:
                 flash("This email is already registered. Try logging in.", 'danger')
                 return redirect(url_for('login'))
-            user = User()
+            user = User(email=register_form.email.data)
             user.set_password(register_form.password.data)
 
             db.session.add(user)
