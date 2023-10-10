@@ -42,8 +42,8 @@ def create_app():
             db.session.commit()
 
         if request.method == "POST" and commit_form.validate():
-            using_user_api = bool(current_user.api_key)
-            used_api_key = current_user.api_key if using_user_api else openai_api_key
+            using_user_api = current_user.is_authenticated and hasattr(current_user, 'api_key') and current_user.api_key
+            used_api_key = current_user.api_key if (current_user.is_authenticated and hasattr(current_user, 'api_key')) else openai_api_key
 
             if not using_user_api and counter.count >= 15:
                 flash("The global request limit has been reached for today. Please try again tomorrow.", 'danger')
@@ -115,6 +115,10 @@ def create_app():
     @login_required
     def profile():
         return render_template('profile.html', user=current_user)
+    
+    @app.route("/why-pretty-commit", methods=["GET"])
+    def why_pretty_commit():
+        return render_template("why-pretty-commit.html", user=current_user)
 
     @app.route('/update_api_key', methods=['POST'])
     @login_required
