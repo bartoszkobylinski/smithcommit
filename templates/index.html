@@ -7,6 +7,7 @@
             <img src="{{ url_for('static', filename='robocik-remove.png') }}" alt="robocik"/>
         </div>
         <div class="form_info_wrapper">
+            <div class="section-wrapper">
             <section class="how-to-use move-up">
                 <h2>Let Pretty Commit Work Its Magic!</h2>
                 <h4>For cleaner commit messages, follow these steps:</h4>
@@ -19,7 +20,7 @@
                     <li>Ready to give it a try? Pretty Commit is here to help!</li>
                 </ol>
             </section>
-            <p> counter for today is: {{ counter.count }}</p>
+            <p class="move-up counter"><strong>Each day, the service provides 15 free trials. Currently, there are {{15 - counter.count}} trials remaining for today. Once depleted, you can either sign up to utilize your own OpenAI API key or revisit the next day.</strong></p>
             {% block flash_messages %}
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -33,19 +34,20 @@
                     {% endif %}
                 {% endwith %}
             {% endblock %}
-
-    {% from "_formhelpers.html" import render_field %}
-    <form class="move-up" method="post">
-        {{ form.hidden_tag() }}
-        <dl>
-            {{ form.diff_message(class='diff_message') }}
-        </dl>
-        <p>
-            <button class="submitButton" type="submit">Craft my beautiful commit </button>
-        </p>
-    </form>
         </div>
-
+            <div class="form-index-wrapper">
+            {% from "_formhelpers.html" import render_field %}
+                <form class="commit-form move-up" method="post">
+                    {{ form.hidden_tag() }}
+                    <dl>
+                        {{ form.diff_message(class='diff_message') }}
+                    </dl>
+                    <p>
+                        <button class="submitButton" type="submit">Craft my beautiful commit </button>
+                    </p>
+                </form>
+        </div>
+        </div>
 </main>
 
 {% endblock %}

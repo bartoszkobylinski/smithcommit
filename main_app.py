@@ -120,6 +120,18 @@ def create_app():
     def why_pretty_commit():
         return render_template("why-pretty-commit.html", user=current_user)
 
+    @app.route("/how-to-do-the-best-commit", methods=["GET"])
+    def how_to_do_the_best_commit():
+        return render_template("how-to-do-the-best-commit.html", user=current_user)
+
+    @app.route("/fun-facts-about-commits", methods=["GET"])
+    def fun_facts_about_commits():
+        return render_template("fun-facts-about-commits.html", user=current_user)
+
+    @app.route("/contact-us", methods=["GET"])
+    def contact_us():
+        return render_template("contact-us.html", user=current_user)
+
     @app.route('/update_api_key', methods=['POST'])
     @login_required
     def update_api_key():

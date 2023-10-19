@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h2>Register</h2>
-<form method="post">
-    {{ register_form.hidden_tag() }}
-
-    <label for="email">Email:</label>
-    {{ register_form.email(id='email') }}
-    <br>
-
-    <label for="password">Password:</label>
-    {{ register_form.password(id='password') }}
-    <br>
-
-    <label for="confirm_password">Confirm Password:</label>
-    {{ register_form.confirm_password(id='confirm_password') }}
-    <br>
-
-    {{ register_form.submit() }}
-</form>
+    <main>
+        <div class="register-form-container">
+            <h2>Register</h2>
+            <form method="post">
+                {{ register_form.hidden_tag() }}
+                <label for="email">Email:</label>
+                {{ register_form.email(id='email') }}
+                <br>
+                <label for="password">Password:</label>
+                {{ register_form.password(id='password') }}
+                <br>
+                <label for="confirm_password">Confirm Password:</label>
+                {{ register_form.confirm_password(id='confirm_password') }}
+                <br>
+                <input class="submitButton" type="submit" value="Register">
+            </form>
+        </div>
+    </main>
 
 {% endblock %}

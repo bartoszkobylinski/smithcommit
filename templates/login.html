@@ -19,11 +19,11 @@
                     <label class="form-label">{{ login_form.remember.label.text }}</label>
                 </div>
                 <div class="form-group">
-                    {{ login_form.submit(class="btn-primary") }}
+                    <input class="submitButton" type="submit" value="Login">
                 </div>
             </form>
             <div class="register-link">
-                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+                <p>Don't have an account? <a href="{{ url_for('register') }}"><strong>Register here</strong></a></p>
             </div>
         </div>
     </main>
