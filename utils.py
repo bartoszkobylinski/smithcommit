@@ -1,5 +1,7 @@
 import openai
 import ast
+import os
+
 
 def request_commit_from_open_ai(prompt, api_key, sys_prompt):
     openai.api_key = api_key
@@ -14,6 +16,8 @@ def request_commit_from_open_ai(prompt, api_key, sys_prompt):
         temperature=0.0,
     )
     commit_message = completion.choices[0].message['content']
-    print(commit_message)
     commit_message = ast.literal_eval(commit_message)
     return commit_message
+
+
+print(os.urandom(32).hex())

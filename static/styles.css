@@ -85,6 +85,9 @@ main {
     display: flex;
     flex-direction: column;
 }
+main a{
+    text-align: center;
+}
 .form_info_wrapper{
     display: flex;
 }
@@ -133,6 +136,7 @@ height: 400px;
 border-radius: 25px;
 padding: 1rem;
 }
+
 button[type="submit"],
 .submitButton {
 font-size: 18px;
@@ -151,16 +155,17 @@ display: inline-block;
 outline: none;
 }
 button[type="submit"]:hover,
-.submitButton {
+.submitButton:hover {
 background-color: #02a9f7;
 box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 button[type="submit"]:active,
-.submitButton {
+.submitButton:active {
 background-color: #404e7c;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 transform: translateY(1px);
 }
+
 /* Footer */
 footer {
 background-color: #02577a;

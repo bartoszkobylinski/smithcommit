@@ -8,19 +8,31 @@
         </div>
         <div class="form_info_wrapper">
             <section class="how-to-use move-up">
-            <h2>Let Pretty Commit Work Its Magic!</h2>
-            <h4>For cleaner commit messages, follow these steps:</h4>
-            <ol>
-                <li>Use git diff > your_file.txt in your terminal to get your diff message into a text file.</li>
-                <li>Open the file you've created to see the diff message.</li>
-                <li>Enter your diff message into the input field below.</li>
-                <li>Click the "Give Me My Beautiful Commit" button to generate a refined commit message.</li>
-                <li>Copy the improved commit message to use in your repository.</li>
-                <li>Ready to give it a try? Pretty Commit is here to help!</li>
-            </ol>
-        </section>
-
-
+                <h2>Let Pretty Commit Work Its Magic!</h2>
+                <h4>For cleaner commit messages, follow these steps:</h4>
+                <ol>
+                    <li>Use git diff > your_file.txt in your terminal to get your diff message into a text file.</li>
+                    <li>Open the file you've created to see the diff message.</li>
+                    <li>Enter your diff message into the input field below.</li>
+                    <li>Click the "Give Me My Beautiful Commit" button to generate a refined commit message.</li>
+                    <li>Copy the improved commit message to use in your repository.</li>
+                    <li>Ready to give it a try? Pretty Commit is here to help!</li>
+                </ol>
+            </section>
+            <p> counter for today is: {{ counter.count }}</p>
+            {% block flash_messages %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="flash {{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% endblock %}
 
     {% from "_formhelpers.html" import render_field %}
     <form class="move-up" method="post">

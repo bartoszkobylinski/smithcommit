@@ -47,7 +47,7 @@ def create_app():
 
             if not using_user_api and counter.count >= 15:
                 flash("The global request limit has been reached for today. Please try again tomorrow.", 'danger')
-                return render_template('index.html', form=commit_form)
+                return render_template('index.html', form=commit_form, counter=counter)
 
             diff = commit_form.diff_message.data
             commit_message = request_commit_from_open_ai(
@@ -60,7 +60,7 @@ def create_app():
             session["commit_message"] = commit_message
             return redirect(url_for("commit"))
 
-        return render_template("index.html", form=commit_form)
+        return render_template("index.html", form=commit_form, counter=counter)
 
     @app.route("/commit", methods=["GET"])
     def commit():

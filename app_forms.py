@@ -3,7 +3,6 @@ from wtforms import Form, TextAreaField, StringField, PasswordField, BooleanFiel
 from wtforms.validators import DataRequired, Email, EqualTo
 
 
-
 class CommitForm(FlaskForm):
     diff_message = TextAreaField(render_kw={"placeholder": "set your diff message here"})
 
